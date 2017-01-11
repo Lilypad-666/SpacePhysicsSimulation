@@ -32,7 +32,10 @@ public class Vector {
         normalScale = 1/mag;
     }
     
-    //prints out a representation of the vector
+    /**
+     * 
+     * @return the string representation of this vector
+     */
     public String toString() {
         return "<" + i + ", " + j + ", " + k + ">";
     }
