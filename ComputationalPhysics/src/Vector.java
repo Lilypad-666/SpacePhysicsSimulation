@@ -79,7 +79,7 @@ public class Vector {
      * @return the unit vector of this
      */
     public Vector normalize() {
-        //only 1 division here, then all multiplication for max efficiency
+        //only 1 division at the beginning, then all multiplication for max efficiency
         return new Vector(normalScale*i, normalScale*j, normalScale*k);
     }
     
