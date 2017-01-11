@@ -36,10 +36,6 @@ public class Vector {
     }
     
     
-//    //returns the magnitude of vector a
-//    public static double mag(Vector a) {
-//        return a.mag;
-//    }
     
     //returns a new vector in the same direction but scale times larger
     public Vector mult(double scale) {
