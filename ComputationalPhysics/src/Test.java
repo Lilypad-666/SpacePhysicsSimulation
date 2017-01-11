@@ -10,7 +10,7 @@
  */
 public class Test {
     public static void main(String[] args) {
-        for (int i = 0; i < 10000000; i++) {
+        for (int i = 0; i < 100000000; i++) {
             Vector a = new Vector(Math.random()*100,Math.random()*100,Math.random()*100);
             Vector b = new Vector(Math.random()*100,Math.random()*100,Math.random()*100);
             Vector c = a.add(b);
