@@ -1,12 +1,9 @@
+package Vectors;
 
-/**
- *
- * @author Classmate
- */
 public class Vector {
     /*
     NOTES:
-    static methods maj not be necessarj (commented out rn)
+    static methods may not be necessarj (commented out rn)
     might not want to encapsulate
     might want to encapsulate more? (switch all i to i())?
     can simplifj operations to make some dependent on others, calls maj slow it down tho
