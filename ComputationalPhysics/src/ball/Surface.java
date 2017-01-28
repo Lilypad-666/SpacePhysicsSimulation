@@ -8,9 +8,10 @@ public class Surface extends PApplet {
     List<PlanetObj> planets;
     double gravity;
     boolean running;
+    graph.Graph graph;
     
     public void settings() {
-        size(1000, 1000);
+        size(1000, 600);
     }
     
     public void addToPlanets(PlanetObj planet){
@@ -21,44 +22,38 @@ public class Surface extends PApplet {
     public void setup() {
         background(0);
         stroke(255, 255, 0);
-        frameRate(60);
+        frameRate(120);
         
         planets = new ArrayList<>();
         
-        running = true;
+        running = false;
         
-        PlanetObj smallPlanet = new PlanetObj(this, "smallPlanet", 400, 400, 25, 5e10, planets);
+        PlanetObj smallPlanet = new PlanetObj(this, "smallPlanet", 400, 100, 25, 5e10, planets);
         
         addToPlanets(smallPlanet);
         
         smallPlanet.addXVel(20);
         smallPlanet.addYVel(-20);
         
-        PlanetObj earth = new PlanetObj(this, "earth", width/2, height/2, 50, 5.972e12, planets);
+        PlanetObj earth = new PlanetObj(this, "earth", width/2, height/2, 50, 9e12, planets);
         
         addToPlanets(earth);
         
-        PlanetObj smallPlanet2 = new PlanetObj(this, "smallPlanet2", 600, 600, 25, 5e10, planets);
-        
-        addToPlanets(smallPlanet2);
-        
-        smallPlanet2.addXVel(-20);
-        smallPlanet2.addYVel(20);
-        
-        PlanetObj mediumPlanet = new PlanetObj(this, "mediumPlanet", 700, 100, 38, 9e11, planets);
+        /*PlanetObj mediumPlanet = new PlanetObj(this, "mediumPlanet", 700, 100, 38, 9e11, planets);
         
         addToPlanets(mediumPlanet);
         
-        mediumPlanet.addXVel(-5);
+        mediumPlanet.addXVel(-10);
+        mediumPlanet.addYVel(-5);*/
         
         String[] args = {"GraphAddOn"};
         
-        graph.Graph graph = new graph.Graph();
+        graph = new graph.Graph();
         
         graph.planetIn(smallPlanet);
         
         //Run Graph
-        //PApplet.runSketch(args, graph);
+        PApplet.runSketch(args, graph);
     }
     
     public void draw() {
@@ -69,16 +64,23 @@ public class Surface extends PApplet {
         }
         
         planets.forEach((p)->p.draw());
+        
+        frame.requestFocus();
     }
     
     @Override
     public void keyPressed(){
         if (key == ' '){
             running = !running;
+            graph.pause(running);
         }
     }
     
     public static void main(String[] args) {
         PApplet.main(new String[]{ball.Surface.class.getName()});
+    }
+    
+    public void pause(boolean running){
+        this.running = running;
     }
 }

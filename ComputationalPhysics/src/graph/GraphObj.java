@@ -5,21 +5,27 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import processing.core.*;
 
 public class GraphObj{
     HashMap<Double, Double> points;
+    HashMap<Double, Double> tempPoints;
     List<Double> xPoints;
+    List<Double> tempXPoints;
     String name;
     PApplet pApp;
     double r;
     double g;
     double b;
+    double minX;
+    double rangeX;
     
     
     public GraphObj(PApplet pApp, String name, double r, double g, double b){
         xPoints = new ArrayList<>();
         points = new HashMap<>();
+        tempPoints = new HashMap<>();
         this.name = name;
         this.pApp = pApp;
         this.r = r;
@@ -80,13 +86,16 @@ public class GraphObj{
     }
     
     public void draw(double rangeX, double rangeY, double minX, double minY, boolean running){
+        this.minX = minX;
+        this.rangeX = rangeX;
+        
         if (pApp.mousePressed){
             drawLabel(rangeX, rangeY, minX, minY, running);
         }
         
         pApp.fill((float)r, (float)g, (float)b);
         pApp.stroke((float)r, (float)g, (float)b);
-        
+        System.out.println(minX + " " + (minX+rangeX));
         xPoints.forEach((x)->pApp.ellipse((float)((x-minX)*(pApp.width/rangeX)), (float)((points.get(x)-minY)*(pApp.height/rangeY)), 10f, 10f));
     }
     
@@ -101,5 +110,51 @@ public class GraphObj{
                 pApp.line((float)((oldX-minX)*(pApp.width/rangeX)), (float)((points.get(oldX)-minY)*(pApp.height/rangeY)), (float)((x-minX)*(pApp.width/rangeX)), (float)((points.get(x)-minY)*(pApp.height/rangeY)));
             oldX = x;
         }
+    }
+    
+    public List<Double> getPoints(){
+        List<Double> points2 = new ArrayList<>();
+        
+        for (double d : xPoints){
+            points2.add(d);
+        }
+        
+        return points2;
+    }
+    
+    public void cropPoints(double min, double range){
+        tempXPoints = xPoints;
+        
+        for(Map.Entry<Double, Double> entry : points.entrySet()) {
+            Double key = entry.getKey();
+            Double value = entry.getValue();
+
+            tempPoints.put(key, value);
+        }
+        
+        List<Double> LtempPoints = new ArrayList<>();
+        
+        for (double d : xPoints){
+            if (d >= min && d <= min+range){
+                LtempPoints.add(d);
+            } else {
+                points.remove(d);
+            }
+        }
+        xPoints = LtempPoints;
+    }
+    
+    public void resetZoom(){
+        tempXPoints.forEach((d)->xPoints.add(d));
+        
+        for(Map.Entry<Double, Double> entry : tempPoints.entrySet()) {
+            Double key = entry.getKey();
+            Double value = entry.getValue();
+
+            points.put(key, value);
+        }
+        
+        tempXPoints.clear();
+        tempPoints.clear();
     }
 }

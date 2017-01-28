@@ -23,7 +23,7 @@ public class PlanetObj{
         this.size = size;
         this.mass = mass;
         
-        scale = 1;
+        scale = 0.1;
         
         this.planets = planets;
         
@@ -70,6 +70,34 @@ public class PlanetObj{
         return mass;
     }
     
+    public String getName(){
+        return name;
+    }
+    
+    public double distanceToNearest(){
+        double closest = -1;
+         for (PlanetObj planet : planets){
+            if (planet.getX() != getX() && planet.getY() != getY()){
+                double distance = Math.sqrt(Math.pow((planet.getX() - x), 2) + Math.pow((planet.getY() - y), 2));
+                if (closest == -1 || distance < closest){
+                    closest = distance;
+                }
+            }
+         }
+         
+         return closest;
+    }
+    
+    public double distanceToPlanet(String name){
+        for (PlanetObj planet : planets){
+            if (planet.getName().equals(name)){
+                return Math.sqrt(Math.pow((planet.getX() - x), 2) + Math.pow((planet.getY() - y), 2));
+            }
+        }
+        
+        return -1;
+    }
+    
     public void doGravity(){
         vector.Vector dir = new vector.Vector(0, 0, 0);
         
@@ -84,8 +112,8 @@ public class PlanetObj{
                 double deltaY = planet.getY() - y;
                 double direction = Math.atan2(deltaY, deltaX);
                 
-                dir.i += scale*(acceleration * Math.cos(direction));
-                dir.j += scale*(acceleration * Math.sin(direction));
+                dir.i += (acceleration * Math.cos(direction));
+                dir.j += (acceleration * Math.sin(direction));
             }
         }
         

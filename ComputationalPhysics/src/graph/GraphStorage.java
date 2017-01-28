@@ -14,6 +14,8 @@ public class GraphStorage{
     double rangeX;
     double rangeY;
     boolean changedLargeSmall;
+    double tempLargestX;
+    double tempSmallestX;
     
     public GraphStorage(PApplet pApp){
         graphs = new ArrayList<>();
@@ -61,7 +63,7 @@ public class GraphStorage{
         
         //Set Scales
         rangeX = Math.abs(largestX - smallestX);
-        rangeY = Math.abs(smallestY - largestY);
+        rangeY = Math.abs(largestY - smallestY);
         
         for (GraphObj g : graphs) {
             if (g.getName().equals(name)){
@@ -86,5 +88,49 @@ public class GraphStorage{
     
     public GraphObj getGraph(int index){
         return graphs.get(index);
+    }
+    
+    public double getMinX(){
+        return smallestX;
+    }
+    
+    public double getRangeX(){
+        return rangeX;
+    }
+    
+    public List<Double> getPoints(){
+        List<Double> points = new ArrayList<>();
+        for (GraphObj g : graphs){
+            List<Double> tempPoints = g.getPoints();
+            
+            for (double d : tempPoints){
+                points.add(d);
+            }
+        }
+        return points;
+    }
+    
+    public void setLargeSmallX(double largestX, double smallestX){
+        this.tempLargestX = this.largestX;
+        this.tempSmallestX = this.smallestX;
+        
+        this.largestX = largestX;
+        this.smallestX = smallestX;
+        
+        rangeX = Math.abs(largestX - smallestX);
+        
+        graphs.forEach((g)->g.cropPoints(this.smallestX, rangeX));
+    }
+    
+    public void resetZoom(){
+        largestX = tempLargestX;
+        smallestX = tempSmallestX;
+        
+        rangeX = Math.abs(largestX - smallestX);
+        
+        graphs.forEach((g)->g.resetZoom());
+        
+        tempLargestX = 0;
+        tempSmallestX = 0;
     }
 }
