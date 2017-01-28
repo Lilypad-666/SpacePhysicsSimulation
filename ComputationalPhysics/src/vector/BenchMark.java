@@ -42,10 +42,10 @@ public class BenchMark implements Iterator<Vector> {
         throw new NoSuchElementException();
     }         
     
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         BenchMark sim = new BenchMark();
         while (sim.hasNext())
             sim.next();
         sim.end();
-    }
+    }*/
 }

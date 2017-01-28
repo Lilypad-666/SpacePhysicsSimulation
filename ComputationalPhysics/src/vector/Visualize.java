@@ -37,7 +37,7 @@ public class Visualize extends PApplet {
             System.out.println(steps);
     }
     
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         PApplet.main(new String[]{vector.Visualize.class.getName()});
-    }
+    }*/
 }
