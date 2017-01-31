@@ -177,6 +177,8 @@ public class PlanetObj {
                         
                 vector.Vector acceleration = vector.Vector.div(force, mass);
                 
+                acceleration.div(scale);
+                
                 velocity.add(vector.Vector.mult(acceleration, PlanetSurface.dt));
             }
         }

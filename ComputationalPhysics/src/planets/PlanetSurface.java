@@ -11,7 +11,8 @@ public class PlanetSurface extends PApplet {
     boolean running;
     
     public static double t = 0;
-    public static double dt = 0.0166667;
+    public static double dt = 1.6667e-2;
+    //public static double dt = 1e-2;
 
     boolean graphDots = false;
     boolean graphLines = false;
@@ -54,26 +55,34 @@ public class PlanetSurface extends PApplet {
 
         if (mode == Mode.orbit) {
 
-            double scale = 1e6;
+            double scale = 1e9;
+            
+            recalcDT(2e6);
 
-            PlanetObj sun = new PlanetObj(this, "sun", width/2, height/2, 100, 1.989e30, planets, scale);
+            PlanetObj sun = new PlanetObj(this, "sun", width/2, height/2, 40, 1.989e30, planets, scale);
 
             addToPlanets(sun);
-
-            //smallPlanet.addXVel(1);
-            //smallPlanet.addYVel(-1);
-
-            PlanetObj earth = new PlanetObj(this, "earth", 200, height/2, 50, 5.972e24, planets, scale);
+            
+            PlanetObj earth = new PlanetObj(this, "earth", width/2+149.6, height/2, 20, 5.972e24, planets, scale);
 
             addToPlanets(earth);
             
-            earth.addYVel(400);
-
-            PlanetObj jupiter = new PlanetObj(this, "jupiter", width-200, height/2, 75, 1.898e27, planets, scale);
-
-            addToPlanets(jupiter);
+            earth.addYVel(3e-5);
+            //earth.addXVel(6e-7);
             
-            jupiter.addYVel(-400);
+            /*PlanetObj venus = new PlanetObj(this, "venus", width/2+108.2, height/2, 15, 4.867e24, planets, scale);
+            
+            addToPlanets(venus);
+            
+            venus.addYVel(1.15e-3);
+            venus.addXVel(0.2e-3);
+            
+            PlanetObj mercury = new PlanetObj(this, "mercury", width/2+57.91, height/2, 10, 3.285e23, planets, scale);
+
+            addToPlanets(mercury);
+            
+            mercury.addYVel(1.55e-3);
+            mercury.addXVel(0.3e-3);*/
 
             //mediumPlanet.addXVel(-1);
             //mediumPlanet.addYVel(-5);
@@ -83,9 +92,11 @@ public class PlanetSurface extends PApplet {
 
         if (mode == Mode.earth) {
 
-            double scale = 1;
+            double scale = 5;
+            
+            recalcDT(1);
 
-            PlanetObj earth = new PlanetObj(this, "earth", width / 2, height / 2, 100, 5.972e24, planets, scale);
+            PlanetObj earth = new PlanetObj(this, "earth", width / 2, height, 6371, 5.972e24, planets, scale);
 
             earth.putAtBottom();
 
@@ -142,9 +153,20 @@ public class PlanetSurface extends PApplet {
         if (running) {
             planets.forEach((p) -> p.step());
             t += dt;
+            for(PlanetObj planet : planets){
+                if (planet.getName().equals("earth")){
+                    if (planet.getX() > width/2 && planet.getY() >= height/2-4 && planet.getY() <= height/2+4){
+                        //System.out.println("EARTH CROSSED AT " + t);
+                    }
+                }
+            }
         }
 
         planets.forEach((p) -> p.draw());
+    }
+    
+    public void recalcDT(double modifier){
+        dt = (modifier/frameRate);
     }
 
     @Override

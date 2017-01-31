@@ -22,7 +22,7 @@ public class Menu extends PApplet {
 
         buttons = new ArrayList<>();
 
-        buttons.add(new Button(this, "Graph", "Plots points as the simulation runs", 100, 100, 150, 50, true));
+        buttons.add(new Button(this, "Graph", "Plots points as the simulation runs", 100, 100, 150, 50));
         buttons.add(new Button(this, "Start", "Starts the simulation", width / 2 - 75, 650, 150, 50));
         buttons.add(new Button(this, "Lines", "Live updates lines on the graph. **AFFECTS PERFORMANCE A LOT**", width / 2 - 75, 100, 150, 50, false));
         buttons.add(new Button(this, "Dots", "Live updates dots on the graph. **Affects Performance A Bit**", 750, 100, 150, 50, true));

@@ -82,7 +82,7 @@ public class Graph extends PApplet {
                 gStore.setPoint("cycloid2", c*(t-Math.sin(t2)), c*(1-Math.cos(t2)));
             } else {
                 for (planets.PlanetObj p : planets) {
-                    if (p.getName().equals("ball") || p.getName().equals("smallPlanet")) {
+                    if (p.getName().equals("earth")) {
                         gStore.setPoint("yVel", time, p.getYVel() / scale);
                         gStore.setPoint("xVel", time, p.getXVel() / scale);
                     }

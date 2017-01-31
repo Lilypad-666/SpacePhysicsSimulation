@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 import processing.core.*;
 
-public class GraphObj {
+public class GraphObj extends PApplet{
 
     HashMap<Double, Double> points;
     HashMap<Double, Double> tempPoints;
@@ -116,7 +116,7 @@ public class GraphObj {
 
         pApp.fill((float) r, (float) g, (float) b);
         pApp.stroke((float) r, (float) g, (float) b);
-        xPoints.forEach((x) -> pApp.ellipse((float) ((x - minX) * (pApp.width / rangeX)), (float) ((points.get(x) - minY) * (pApp.height / rangeY)), 10f, 10f));
+        xPoints.forEach((x) -> pApp.ellipse((float) ((x - minX) * (pApp.width / rangeX)), (float) ((points.get(x) - minY) * (pApp.height / rangeY)), 2f, 2f));
     }
 
     public void drawLines(double rangeX, double rangeY, double minX, double minY) {
