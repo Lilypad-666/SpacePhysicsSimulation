@@ -27,11 +27,12 @@ public class Menu extends PApplet {
         buttons.add(new Button(this, "Lines", "Live updates lines on the graph. **AFFECTS PERFORMANCE A LOT**", width / 2 - 75, 100, 150, 50, false));
         buttons.add(new Button(this, "Dots", "Live updates dots on the graph. **Affects Performance A Bit**", 750, 100, 150, 50, true));
         buttons.add(new Button(this, "Wrap", "Planets/Objects wrap around the screen", 100, 200, 150, 50, false));
-
+        buttons.add(new Button(this, "N-Body", "All planets pull on eachother.", width-250, 200, 150, 50, false));
+        
         List<String> modes = new ArrayList<>();
 
         modes.add("Orbit");
-        modes.add("Space");
+        modes.add("Particle");
         modes.add("Earth");
         modes.add("Cycloid");
 
@@ -40,11 +41,11 @@ public class Menu extends PApplet {
         //Orbit
         info.add("A simulation of orbiting around earth.");
         
-        //Space
-        info.add("A simulation with planets with no collision.");
-
+        //Particle
+        info.add("Particle simulation test.");
+        
         //Earth
-        info.add("A simulation of dropping something towards Earth.");
+        info.add("Dropping ball on earth simulation.");
         
         //Cycloid
         info.add("A simulation of a cycloid (no visualization)");
@@ -86,24 +87,10 @@ public class Menu extends PApplet {
                 }
             } else if (button.pointInside(mouseX, mouseY)) {
 
-                if (button.getText().equals("Graph")) {
-                    button.toggle();
-                }
-
-                if (button.getText().equals("Lines")) {
-                    button.toggle();
-                }
-
-                if (button.getText().equals("Dots")) {
-                    button.toggle();
-                }
-
-                if (button.getText().equals("Wrap")) {
-                    button.toggle();
-                }
-
                 if (button.getText().equals("Start")) {
                     startButton();
+                } else {
+                    button.toggle();
                 }
             }
         }
@@ -114,6 +101,7 @@ public class Menu extends PApplet {
         boolean lines = false;
         boolean dots = true;
         boolean wrap = false;
+        boolean nbody = false;
         int mode = 0;
 
         for (Button button : buttons) {
@@ -131,6 +119,10 @@ public class Menu extends PApplet {
 
             if (button.getText().equals("Wrap")) {
                 wrap = button.getEnabled();
+            }
+            
+            if (button.getText().equals("N-Body")){
+                nbody = button.getEnabled();
             }
 
             if (button.getText().equals("Mode")) {
@@ -153,6 +145,10 @@ public class Menu extends PApplet {
         pSurface.setMode(mode);
 
         pSurface.setWrap(wrap);
+        
+        pSurface.setGravity(nbody);
+        
+        pSurface.createSquares(4, 5);
 
         PApplet.runSketch(surfaceArgs, pSurface);
 

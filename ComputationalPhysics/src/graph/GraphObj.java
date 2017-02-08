@@ -79,8 +79,8 @@ public class GraphObj extends PApplet{
                         pApp.fill(255, 255, 255);
                         pApp.stroke(255, 255, 255);
 
-                        DecimalFormat df = new DecimalFormat("#.##");
-                        df.setRoundingMode(RoundingMode.CEILING);
+                        DecimalFormat df = new DecimalFormat("#.###");
+                        df.setRoundingMode(RoundingMode.HALF_UP);
 
                         double drawX = 12;
                         double drawY = 30;

@@ -5,7 +5,7 @@ import java.util.List;
 import processing.core.*;
 
 public class Graph extends PApplet {
-
+    
     GraphStorage gStore;
     boolean drawLines;
     boolean drawDots;
@@ -14,15 +14,16 @@ public class Graph extends PApplet {
     boolean zoomed;
     boolean cycloid;
     double draggingStart;
-
-    //Cycloitd Stuff
+    
+    int time;
     double t;
-    double t2;
     double dt;
+    
+    //Cycloid stuff
+    double t2;
     double c;
     
     List<planets.PlanetObj> planets = new ArrayList<>();
-    double time;
     double scale;
 
     @Override
@@ -33,23 +34,26 @@ public class Graph extends PApplet {
     @Override
     public void setup() {
         background(0);
-        frameRate(60);
+        frameRate(100);
 
         running = false;
         zoomed = false;
 
         gStore = new GraphStorage(this);
 
+        time = 0;
+        t = 0;
+        dt = 1d/100d;
+        
         if (cycloid){
             gStore.createGraph("cycloid", 255, 0, 0);
             gStore.createGraph("cycloid2", 0, 255, 0);
-            t = 0;
-            dt = 0.1;
+            
             c = 50;
             t2 = 10;
         } else{
-            gStore.createGraph("yVel", 255, 255, 255);
-            gStore.createGraph("xVel", 100, 255, 255);
+            gStore.createGraph("acceleration", 0, 200, 100);
+            gStore.createGraph("distanceToEarth", 200, 100, 0);
         }
     }
 
@@ -70,21 +74,23 @@ public class Graph extends PApplet {
         } else {
             drawLines = false;
         }
-
+        
         if (running) {
-            time += 1;
+            t += dt;
+            time++;
+            
+            
             
             if (cycloid){
-                t += dt;
                 t2 += dt;
 
                 gStore.setPoint("cycloid", c*(t-Math.sin(t)), c*(1-Math.cos(t)));
                 gStore.setPoint("cycloid2", c*(t-Math.sin(t2)), c*(1-Math.cos(t2)));
             } else {
                 for (planets.PlanetObj p : planets) {
-                    if (p.getName().equals("earth")) {
-                        gStore.setPoint("yVel", time, p.getYVel() / scale);
-                        gStore.setPoint("xVel", time, p.getXVel() / scale);
+                    if (time % 10 == 0){
+                        gStore.setPoint("distanceToEarth", t, p.distanceToPlanetSurface("earth")/scale);
+                        gStore.setPoint("acceleration", t, p.getAcceleration().mag);
                     }
                 }
             }
@@ -166,20 +172,20 @@ public class Graph extends PApplet {
 
                 List<Double> points = gStore.getPoints();
 
-                //Junk number
-                double smallX = -1.838576;
-                double largeX = -1.838576;
+                //Junk number that it'll never be
+                double smallX = -1.8385765223;
+                double largeX = -1.8385765223;
 
                 double rangeX = gStore.getRangeX();
                 double minX = gStore.getMinX();
 
                 for (double d : points) {
                     double tempD = (d - minX) * (width / rangeX);
-                    if ((smallX == -1.838576 && tempD > lowBound) || (tempD > lowBound && tempD < smallX)) {
+                    if ((smallX == -1.8385765223 && tempD > lowBound) || (tempD > lowBound && tempD < smallX)) {
                         smallX = d;
                     }
 
-                    if ((largeX == -1.838576 && tempD < lowBound + range) || (tempD > largeX && tempD < lowBound + range)) {
+                    if ((largeX == -1.8385765223 && tempD < lowBound + range) || (tempD > largeX && tempD < lowBound + range)) {
                         largeX = d;
                     }
                 }
@@ -189,6 +195,7 @@ public class Graph extends PApplet {
         }
     }
 
+    @Override
     public void keyPressed() {
         if (key == ENTER) {
             if (zoomed) {

@@ -128,7 +128,7 @@ public class GraphStorage {
 
         graphs.forEach((g) -> g.cropPoints(this.smallestX, rangeX));
     }
-
+    
     public void resetZoom() {
         largestX = tempLargestX;
         smallestX = tempSmallestX;
