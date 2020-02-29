@@ -1,50 +1,60 @@
-# Windows image file caches
-Thumbs.db
-ehthumbs.db
+.metadata
+bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.settings/
+.loadpath
+.recommenders
 
-# Folder config file
-Desktop.ini
+# External tool builders
+.externalToolBuilders/
 
-# Recycle Bin used on file shares
-$RECYCLE.BIN/
+# Locally stored "Eclipse launch configurations"
+*.launch
 
-# Windows Installer files
-*.cab
-*.msi
-*.msm
-*.msp
+# PyDev specific (Python IDE for Eclipse)
+*.pydevproject
 
-# Windows shortcuts
-*.lnk
+# CDT-specific (C/C++ Development Tooling)
+.cproject
 
-# =========================
-# Operating System Files
-# =========================
+# CDT- autotools
+.autotools
 
-# OSX
-# =========================
+# Java annotation processor (APT)
+.factorypath
 
-.DS_Store
-.AppleDouble
-.LSOverride
+# PDT-specific (PHP Development Tools)
+.buildpath
 
-# Thumbnails
-._*
+# sbteclipse plugin
+.target
 
-# Files that might appear in the root of a volume
-.DocumentRevisions-V100
-.fseventsd
-.Spotlight-V100
-.TemporaryItems
-.Trashes
-.VolumeIcon.icns
+# Tern plugin
+.tern-project
 
-# Directories potentially created on remote AFP share
-.AppleDB
-.AppleDesktop
-Network Trash Folder
-Temporary Items
-.apdisk
-/ComputationalPhysics/dist/
-/ComputationalPhysics_VectorTest/nbproject/private/
-/ComputationalPhysics_VectorTest/build/
+# TeXlipse plugin
+.texlipse
+
+# STS (Spring Tool Suite)
+.springBeans
+
+# Code Recommenders
+.recommenders/
+
+# Annotation Processing
+.apt_generated/
+.apt_generated_test/
+
+# Scala IDE specific (Scala & Java development for Eclipse)
+.cache-main
+.scala_dependencies
+.worksheet
+
+# Uncomment this line if you wish to ignore the project description file.
+# Typically, this file would be tracked if it contains build/dependency configurations:
+#.project
